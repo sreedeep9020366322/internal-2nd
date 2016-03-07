@@ -103,37 +103,45 @@
 	   jQuery('#addOrder').click(function(event){
 	       event.preventDefault();
 	       counter++;
-	       var newRow = jQuery('<tr><td><input type="text" name="first_name' +
-	           counter + '"/></td><td><input type="text" name="last_name' +
-	           counter + '"/></td><td><input type="text" name="last_name' +
+	       var newRow = jQuery('<tr><td><input type="text" name="testCode' +
+	           counter + '"/></td><td><input type="text" name="testName' +
+	           counter + '"/></td><td><input type="text" name="Amount' +
 	           counter + '"/></td></tr>');
 	       $('table.testOrders').append(newRow);
 	   });
-	}); 
+	   
+   });
    
-   $(function() { 
-		
-		$("#doctorId").on('keyup',function(){
-			var usrId = $(this).val();
+   $(function() {
+	   
+	   $("#doctorId").on('keyup',function(){
+			
+		   alert("came here..");
+			var userId = $(this).val();
+			alert("---"+userId);
 			$.ajax({
 				type: 'GET', 
-	            url: "Data/doctor.json",
-	            dataType: "json",
+	            url: "Doctor.json",
+	            dataType: "text",
 	            success: function(data) {
-	                var flag = false;
-	                for (var i = 0;i < data.length;++i) {
-	                	if(usrId == data[i].dcode) {
-	                		$("#doctorName").val(data[i].name);
+	            	parseData = $.parseJSON(data);
+	           		var flag = false;
+	                for (var i = 0;i < parseData.length;++i) {
+	                	if(userId == parseData[i].doctorCode) {
+	                		$("#doctorName").val(parseData[i].doctorName);
 	                		flag = true;
 	                	}
-	                }
-	                if(!flag)
+	                } 
+	                if(!flag) {
 	                	$("#doctorName").val("");
+	                }
 	            }
 			});
 		});
-		
-	});
+	   
+	}); 
+   
+   
 
 </script>
 </html>
