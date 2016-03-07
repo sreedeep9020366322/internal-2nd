@@ -8,6 +8,6 @@
 </head>
 <body>
 
-	<h3><a href= "ContactAdmin.html" >Contact admin </a></h3>
+	<h4><a href= "ContactAdmin.html" >Contact admin </a></h4>
 </body>
 </html>

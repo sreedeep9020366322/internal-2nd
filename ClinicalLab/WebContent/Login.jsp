@@ -13,10 +13,6 @@
 	<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 	
 	
-<script >
-
-</script>
-	
 
 </head>
 <body>
@@ -28,6 +24,9 @@
 			<%@ include file= "Header.jsp" %>
 	</header>
 	
+	<hr>
+	
+	<%@ include file= "SubSection.jsp" %>
 	<fmt:setLocale value="${param['locale']}"/>
 	
 	<fmt:setBundle basename= "MessageResources" var= "msg" scope= "page"/>
@@ -53,19 +52,22 @@
 				<td>
 					<label><fmt:message key= "forms.label.labcode" bundle= "${msg }"/></label>
 				</td>
-				<td><input type= "text" name= "labCode" id= "labCode"></td>
+				<td><input type= "text" name= "labCode" id= "labCode" list= "lab">
+				
+					<datalist id= "lab"></datalist>
+				</td>
 			</tr>
 			<tr>
 				<td>
 					<label><fmt:message key= "forms.label.userName" bundle= "${msg }"/></label>
 				</td>
-				<td><input type= "text" name= "userName"></td>
+				<td><input type= "text" name= "userName" id= "userName"></td>
 			</tr>
 			<tr>
 				<td>
 					<label><fmt:message key= "forms.label.passWord" bundle= "${msg }"/></label>
 				</td>
-				<td><input type= "password" name= "pswd"></td>
+				<td><input type= "password" name= "pswd" id= "pswd"></td>
 			</tr>
 			<tr>
 				<td colspan= "2"><input type= "submit" value= "Login"></td>
@@ -75,24 +77,37 @@
 		</table>
 	</form>
 	
-		<script>
-			$("#labCode").autocomplete({     
-                source : function(request, response) {
-                    $.ajax({
-                            url : "labCode_json",
-                            type : "GET",
-                            data : {
-                                    term : request.term
-                            },
-                            dataType : "json",
-                            success : function(data) {
-                                    response(data);
-                            }
-                    });
-                }});
-		</script>
 	<footer>
 			<%@ include file= "Footer.jsp" %>
 	</footer>
 </body>
+
+<script >
+
+	var inputField = document.getElementById("labCode");
+	var dataListField = document.getElementById("lab");
+	
+	var xmlhttpobject = new XMLHttpRequest();
+	xmlhttpobject.open("GET","LabCode.json",true);
+	
+	xmlhttpobject.onreadystatechange=function(response)
+	{
+	
+		if(xmlhttpobject.readyState == 4 && xmlhttpobject.status == 200) {
+			
+			var jSonOptions = JSON.parse(xmlhttpobject.responseText);
+			jSonOptions.forEach(function(item){
+				
+				var option = document.createElement("option");
+				option.value = item.code;
+				dataListField.appendChild(option);
+			});
+		}
+	};
+	
+	xmlhttpobject.send();
+	
+	
+</script>
+
 </html>

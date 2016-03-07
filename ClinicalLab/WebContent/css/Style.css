@@ -1,10 +1,29 @@
 @CHARSET "ISO-8859-1";
 
-h1,h3{
+h1,h4{
 	
 	text-align: center;
 	color: blue;
 	background-color: grey;
+}
+
+h2{
+	
+	text-align: center;
+	color: blue;
+}
+
+h3 {
+	
+	text-align: left;
+	color: red;
+	background-color: green;
+}
+
+h5 {
+	
+	color: red;
+	text-align: left;
 }
 
 body{
@@ -21,11 +40,21 @@ table{
 	margin-right: auto;
 	width: 50%;
 	border-collapse: collapse;
+	
 }
 
-tr,td,th{
+
+th{
+	
+		border-collapse: collapse;
+		border: 1px solid blue;
+		text-align: center;
+}
+
+tr,td{
 	
 	border: 1px solid blue;
 	text-align: center;
+	width: 15px;
 }
 
